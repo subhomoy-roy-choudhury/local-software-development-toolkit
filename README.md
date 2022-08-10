@@ -8,7 +8,9 @@
 # Mongo 4.2.2 server setup usig docker :- 
 
 `https://medium.com/@acpanjan/download-google-drive-files-using-wget-3c2c025a8b99`
+
 `https://hevodata.com/learn/mongodb-docker/`
+
 `https://faun.pub/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3`
 
 ```
