@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  mongodb-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image : mongo:4.2.2
+    container_name: mongodb-test
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /home/thor/Documents/fynd/mongodb/database:/data/db
+    ports:
+      - 27020:27017
+    restart: unless-stopped
