@@ -6,12 +6,13 @@ services:
       dockerfile: Dockerfile
 
     image : mongo:4.2.2
+    platform: linux/amd64
     container_name: mongodb-fynd
     environment:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /home/thor/Documents/fynd/mongodb/database:/data/db
+      - ~/Documents/fynd/fynd-local-db-setup/database:/data/db
     ports:
       - 27017:27017
     restart: unless-stopped
