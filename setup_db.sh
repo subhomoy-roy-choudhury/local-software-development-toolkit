@@ -1,16 +1,28 @@
 #!/bin/bash
+echo "Database Dump List :-";
 
-db_names=("orbis" "silverbolt");
 
-echo "[1] orbis";
-echo "[2] silverbolt";
+container_name='mongodb-fynd';
+container_id=$(docker ps -aqf "name=${container_name}");
+
+db_names=();
+
+file_count=0;
+for file in db_zip/*.zip
+    do
+        ((file_count=file_count+1))
+        name=${file##*/}
+        base=${name%.zip}
+        db_names+=($base)
+        docker cp db_zip/${base}.zip $container_id:/home/fynd-data/db_zip/${base}.zip     
+        echo "[$file_count] ${base}"
+    done
 
 read -p 'Enter the option :- ' option_key;
 
+
 function get_db() {
-    wget --no-check-certificate --header 'Authorization: token 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' https://raw.githubusercontent.com/subhomoy-roy-choudhury/fynd-local-db-setup/master/db_zip/${1}.zip -O ${1}.zip
-    unzip ${1}.zip
-    mongorestore --db ${1} --gzip ${1}
+    docker exec -it $container_name bash -c "rm -rf ${1} && unzip db_zip/${1}.zip && mongorestore --db ${1} --gzip ${1}"
 }
 
 get_db ${db_names[$option_key - 1]};
