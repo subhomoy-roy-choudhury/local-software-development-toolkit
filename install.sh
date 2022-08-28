@@ -8,7 +8,7 @@ echo "[+] Creating database folder";
 {
 mkdir $DATABASE_ZIP_FOLDER
 mkdir $DATABASE_DUMP_FOLDER_NAME
-} &> /dev/null
+} &> /dev/null   # hide stderr and stdout output using /dev/null
 
 echo "[+] Checking for local.env file"
 
@@ -16,7 +16,9 @@ FILE=local.env
 if [ -f "$FILE" ]; then
     echo "$FILE exists."
 else 
-    echo "$FILE does not exist."
+    echo "Creating $FILE"
+    read -p 'Enter the MongoDB version :- ' MONGO_VERSION;
+    echo "MONGO_VERSION=${MONGO_VERSION}" > $FILE
 fi
 
 echo "[+] Loading Environment variables"
