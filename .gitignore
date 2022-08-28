@@ -1,3 +1,10 @@
 database/*
 db_zip/*
 local.env
+
+venv
+
+build/*
+dist
+
+Local_Mongo_DB.egg-info
