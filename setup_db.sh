@@ -18,7 +18,7 @@ for file in db_zip/*.zip
 
         db_names+=($base)
 
-        docker cp db_zip/${base}.zip $container_id:/home/fynd-data/db_zip/${base}.zip     #Syncing new files
+        docker cp db_zip/${base}.zip $container_id:/home/fynd-data/db_zip/${base}.zip &> /dev/null   #Syncing new files
         echo "[$file_count] ${base}"
     done
 
