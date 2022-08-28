@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
 
-    image : mongo:4.2.2
+    image : "mongo:${MONGO_VERSION}"
     platform: linux/amd64
     container_name: mongodb-fynd
     environment:
