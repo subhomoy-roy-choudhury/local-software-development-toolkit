@@ -26,7 +26,7 @@ read -p 'Enter the option :- ' option_key;
 
 
 function get_db() {
-    docker exec -it $container_name bash -c "rm -rf ${1} && unzip -o db_zip/${1}.zip && mongorestore --db ${1} --gzip ${1}" &> /dev/null
+    docker exec -it $container_name bash -c "rm -rf ${1} && unzip -o db_zip/${1}.zip && mongorestore --db ${1} --gzip ${1}"
 }
 
 get_db ${db_names[$option_key - 1]};
