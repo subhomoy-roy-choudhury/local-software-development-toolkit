@@ -7,7 +7,7 @@ services:
 
     image : "mongo:${MONGO_VERSION}"
     platform: linux/amd64
-    container_name: mongodb-fynd
+    container_name: "${DEFAULT_CONTAINER_NAME}"
     environment:
       - PUID=1000
       - PGID=1000
