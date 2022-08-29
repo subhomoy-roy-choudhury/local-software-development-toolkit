@@ -3,6 +3,9 @@ DATABASE_ZIP_FOLDER="db_zip";
 env_file_name="local.env";
 unamestr=$(uname)
 
+DEFAULT_MONGO_VERSION=4.2.2;
+DEFAULT_CONTAINER_NAME=local-mongo
+
 echo "[+] Creating database folder";
 
 {
@@ -17,8 +20,12 @@ if [ -f "$FILE" ]; then
     echo "$FILE exists."
 else 
     echo "Creating $FILE"
-    read -p 'Enter the MongoDB version :- ' MONGO_VERSION;
-    echo "MONGO_VERSION=${MONGO_VERSION}" > $FILE
+
+    read -p "Enter the MongoDB version [$DEFAULT_MONGO_VERSION]: " MONGO_VERSION;
+    echo "MONGO_VERSION=${MONGO_VERSION:-$DEFAULT_MONGO_VERSION}" > $FILE
+
+    read -p "Enter the Container Name [$DEFAULT_CONTAINER_NAME]: " CONTAINER_NAME;
+    echo "CONTAINER_NAME=${CONTAINER_NAME:-$DEFAULT_CONTAINER_NAME}" >> $FILE
 fi
 
 echo "[+] Loading Environment variables"
@@ -33,7 +40,7 @@ elif [ "$unamestr" = 'FreeBSD' ] || [ "$unamestr" = 'Darwin' ]; then
 
 fi
 
-echo "[+] Building and starting mongo:4.2.2 instance"
-docker-compose up --build -d
+# echo "[+] Building and starting mongo:4.2.2 instance"
+# docker-compose up --build -d
 
-echo "[+] Finished"
+# echo "[+] Finished"
