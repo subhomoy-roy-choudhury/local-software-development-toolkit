@@ -2,7 +2,7 @@
 echo "Database Dump List :-";
 
 
-container_name=${DEFAULT_CONTAINER_NAME};
+container_name=${CONTAINER_NAME};
 container_id=$(docker ps -aqf "name=${container_name}");
 
 db_names=();
