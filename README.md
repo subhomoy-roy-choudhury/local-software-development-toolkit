@@ -1,4 +1,4 @@
-# fynd-local-db-setup
+# Local Mongo
 
 # Reference :- 
 
