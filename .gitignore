@@ -8,3 +8,5 @@ build/*
 dist
 
 Local_Mongo_DB.egg-info
+
+.vscode
