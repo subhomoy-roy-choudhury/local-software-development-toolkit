@@ -54,7 +54,7 @@ def run():
 
     signal.signal(signal.SIGINT, handler)
 
-    print("[green][+] Loading Environment variables")
+    rprint("[green][+] Loading Environment variables")
 
     dotenv_path = Path('local.env')
     load_dotenv(dotenv_path=dotenv_path)
