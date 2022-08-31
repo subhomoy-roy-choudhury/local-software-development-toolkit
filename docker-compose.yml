@@ -7,12 +7,12 @@ services:
 
     image : "mongo:${MONGO_VERSION}"
     platform: linux/amd64
-    container_name: mongodb-fynd
+    container_name: "${CONTAINER_NAME}"
     environment:
       - PUID=1000
       - PGID=1000
-    volumes:
-      - ./database:/data/db
+    # volumes:
+    #   - ./database:/data/db       #persistent database
     ports:
       - 27017:27017
     restart: unless-stopped

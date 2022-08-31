@@ -1,9 +1,11 @@
-#!/bin/bash
-echo "Database Dump List :-";
+#!/bin/sh
 
+echo "[+] Loading Environment variables"
+source utils/load-env.sh local.env
 
-container_name='mongodb-fynd';
-container_id=$(docker ps -aqf "name=${container_name}");
+echo "Database Dump List :";
+
+container_id=$(docker ps -aqf "name=${CC}");    # var CONTAINER_NAME is from loca.env
 
 db_names=();
 
@@ -26,7 +28,7 @@ read -p 'Enter the option :- ' option_key;
 
 
 function get_db() {
-    docker exec -it $container_name bash -c "rm -rf ${1} && unzip -o db_zip/${1}.zip && mongorestore --db ${1} --gzip ${1}"
+    docker exec -it $CONTAINER_NAME bash -c "rm -rf ${1} && unzip -o db_zip/${1}.zip && mongorestore --db ${1} --gzip ${1}"
 }
 
 get_db ${db_names[$option_key - 1]};

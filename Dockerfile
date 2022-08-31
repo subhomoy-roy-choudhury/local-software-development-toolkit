@@ -7,6 +7,4 @@ COPY . .
 
 WORKDIR /home/fynd-data
 
-RUN chmod +x setup_db.sh
-
 RUN echo "Finished"
