@@ -19,7 +19,7 @@ echo "${GREEN}[+] Creating database folder${COLOR_OFF}";      # printf is also u
 
 {
 mkdir $DATABASE_ZIP_FOLDER
-mkdir $DATABASE_DUMP_FOLDER_NAME
+# mkdir $DATABASE_DUMP_FOLDER_NAME
 } &> /dev/null   # hide stderr and stdout output using /dev/null
 
 echo "${GREEN}[+] Checking for local.env file${COLOR_OFF} "
