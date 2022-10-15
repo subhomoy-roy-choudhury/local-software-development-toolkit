@@ -1,5 +1,7 @@
 database/*
 db_zip/*
+data/*
+
 local.env
 
 venv

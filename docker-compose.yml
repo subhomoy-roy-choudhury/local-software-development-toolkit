@@ -1,5 +1,15 @@
 version: "3.8"
 services:
+  solr:
+    image: solr
+    ports:
+     - "8984:8983"
+    volumes:
+      - ./data:/var/solr
+    command:
+      - solr-precreate
+      - gettingstarted
+
   mongodb:
     build:
       context: .
