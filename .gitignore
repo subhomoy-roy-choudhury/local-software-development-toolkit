@@ -12,3 +12,7 @@ dist
 Local_Mongo_DB.egg-info
 
 .vscode
+
+solr_config
+
+.DS_Store
