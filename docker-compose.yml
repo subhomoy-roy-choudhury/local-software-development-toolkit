@@ -1,19 +1,9 @@
-version: "3.8"
+version: "3"
 services:
-  solr:
-    image: solr
-    ports:
-     - "8984:8983"
-    volumes:
-      - ./data:/var/solr
-    command:
-      - solr-precreate
-      - gettingstarted
-
   mongodb:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./docker/mongodb/Dockerfile
 
     image : "mongo:${MONGO_VERSION}"
     platform: linux/amd64
@@ -25,4 +15,21 @@ services:
     #   - ./database:/data/db       #persistent database
     ports:
       - 27017:27017
+    restart: unless-stopped
+
+  solr:
+    # build: ./docker/solr/
+    #   context: .
+    #   dockerfile: ./docker/solr/Dockerfile
+
+    image: "solr:8.11.2"
+    container_name: "local-solr"
+    platform: linux/arm64    # platform: osx | platform: windows/amd64 | platform: linux/arm64/v8
+    ports:
+     - "8985:8983"
+    volumes:
+      - ./data:/var/solr
+    command:
+      - solr-precreate
+      - products_v2
     restart: unless-stopped
