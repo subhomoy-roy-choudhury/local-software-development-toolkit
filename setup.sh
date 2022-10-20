@@ -5,4 +5,4 @@
     python setup.py install 
 } &> /dev/null
 
-local-mongo
+local-solr
