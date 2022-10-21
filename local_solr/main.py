@@ -33,10 +33,23 @@ class LocalSolr(object):
         res = self.local_solr_container.exec_run(f'solr create -c {core}')
         return 0
 
+    def setup_products_core(self, core: str):
+        self.docker_client.copy_to_container('solr_config/products/managed-schema', f'local-solr:/var/solr/data/{core}/conf/')
+        self.docker_client.copy_to_container('solr_config/products/currency.xml', f'local-solr:/var/solr/data/{core}/conf/')
+        self.docker_client.copy_to_container('solr_config/products/data-config.xml', f'local-solr:/var/solr/data/{core}/conf/')
+
+    def delete_documents(self, solr_engine: object):
+        solr_engine.delete(q='*:*')
+
     def exec(self):
-        self.add_core('test')
-        solr_engine = pysolr.Solr('http://localhost:8985/solr/test', search_handler='/update', use_qt_param=False, verify=False)
+        # self.add_core('test')
+        # self.delete_core('test')
+
+        # self.setup_products_core('test')
+        solr_engine = pysolr.Solr('http://localhost:8985/solr/test', use_qt_param=False, verify=False)
         self.insert_data(solr_engine)
+
+        # self.delete_documents(solr_engine)
         
 
         
