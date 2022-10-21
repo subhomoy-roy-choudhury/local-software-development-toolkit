@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Reference Links :- 
 # https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
@@ -76,5 +76,13 @@ On_IPurple='\033[0;105m'  # Purple
 On_ICyan='\033[0;106m'    # Cyan
 On_IWhite='\033[0;107m'   # White
 
-color_input=$1;
-echo ${!color_input}
+find_colors () {
+    color_input=$1
+    echo "${!color_input}"
+    # eval echo "\$${color_input}"
+}
+
+# function recho() {
+#     string=$1
+#     echo "$string $Color_Off"
+# }

@@ -1,9 +1,10 @@
-#!/bin/sh
+# !/bin/bash
 
 DATABASE_DUMP_FOLDER_NAME="database";
 DATABASE_ZIP_FOLDER="db_zip";
 ENV_FILE_NAME="local.env";
-UNAMESTR=$(uname)
+UNAMESTR=$(uname);
+CURRENT_PATH=$(pwd);
 
 DEFAULT_MONGO_VERSION=4.2.2;
 DEFAULT_CONTAINER_NAME=local-mongo
@@ -11,11 +12,14 @@ DEFAULT_CONTAINER_NAME=local-mongo
 #Finding Colors
 COLORS_FILE_PATH='./utils/find-colors.sh'
 
-COLOR_OFF=$(source $COLORS_FILE_PATH Color_Off);
-GREEN=$(source $COLORS_FILE_PATH Green);
-RED=$(source $COLORS_FILE_PATH Red);
+#Import util Scripts
+sh $COLORS_FILE_PATH
 
-echo "${GREEN}[+] Creating database folder${COLOR_OFF}";      # printf is also used instead of echo -e
+COLOR_OFF=$(find-colors Color_Off);
+GREEN=$(find-colors Green);
+RED=$(find-colors Red);
+
+recho "${GREEN}[+] Creating database folder";      # printf is also used instead of echo -e
 
 {
 mkdir $DATABASE_ZIP_FOLDER
@@ -39,9 +43,9 @@ fi
 
 echo "[+] Loading Environment variables"
 
-source utils/load-env.sh local.env
+bash utils/load-env.sh local.env
 
 echo "[+] Building and starting mongo:4.2.2 instance"
-docker-compose up --build -d
+# docker-compose up --build -d
 
 echo "[+] Finished"
