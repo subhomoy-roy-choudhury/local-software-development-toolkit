@@ -25,6 +25,9 @@ class LocalSolr(object):
 
         solr_engine.add(data)
     
+    def reload_solr_core(self, core: str):
+        pass
+
     def delete_core(self, core: str):
         res = self.local_solr_container.exec_run(f'solr delete -c {core}')
         return 0
@@ -42,10 +45,10 @@ class LocalSolr(object):
         solr_engine.delete(q='*:*')
 
     def exec(self):
-        # self.add_core('test')
+        self.add_core('test')
         # self.delete_core('test')
 
-        # self.setup_products_core('test')
+        self.setup_products_core('test')
         solr_engine = pysolr.Solr('http://localhost:8985/solr/test', use_qt_param=False, verify=False)
         self.insert_data(solr_engine)
 

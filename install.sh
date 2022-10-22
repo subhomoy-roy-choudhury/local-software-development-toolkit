@@ -46,6 +46,6 @@ echo "[+] Loading Environment variables"
 source utils/load-env.sh local.env
 
 echo "[+] Building and starting mongo:4.2.2 instance"
-docker-compose up --build -d
+docker-compose up --build -d --remove-orphans
 
 echo "[+] Finished"
