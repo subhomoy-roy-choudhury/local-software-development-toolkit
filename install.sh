@@ -47,16 +47,15 @@ else
     read -p "Enter the Solr container name [$DEFAULT_SOLR_CONTAINER_NAME]: " SOLR_CONTAINER_NAME;
     echo "SOLR_CONTAINER_NAME=${SOLR_CONTAINER_NAME:-$DEFAULT_SOLR_CONTAINER_NAME}" >> $FILE
 
-fi
+    if [ "$UNAMESTR" = 'Linux' ]; then
 
-if [ "$UNAMESTR" = 'Linux' ]; then
+        echo "DOCKER_PLATFORM=linux/arm64" >> $FILE
 
-    echo "DOCKER_PLATFORM=linux/arm64" >> $FILE
+    elif [ "$UNAMESTR" = 'FreeBSD' ] || [ "$UNAMESTR" = 'Darwin' ]; then
 
-elif [ "$UNAMESTR" = 'FreeBSD' ] || [ "$UNAMESTR" = 'Darwin' ]; then
+        echo "DOCKER_PLATFORM=linux/amd64" >> $FILE
 
-    echo "DOCKER_PLATFORM=linux/amd64" >> $FILE
-
+    fi
 fi
 
 echo "[+] Loading Environment variables"
