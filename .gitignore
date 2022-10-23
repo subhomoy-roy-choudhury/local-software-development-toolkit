@@ -1,5 +1,7 @@
 database/*
 db_zip/*
+data/*
+
 local.env
 
 venv
@@ -10,3 +12,7 @@ dist
 Local_Mongo_DB.egg-info
 
 .vscode
+
+solr_config
+
+.DS_Store

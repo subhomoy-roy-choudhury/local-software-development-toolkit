@@ -1,6 +1,7 @@
 #!/bin/sh
 
 DATABASE_DUMP_FOLDER_NAME="database";
+SOLR_DUMP_FOLDER_NAME="data";
 DATABASE_ZIP_FOLDER="db_zip";
 ENV_FILE_NAME="local.env";
 UNAMESTR=$(uname)
@@ -18,8 +19,11 @@ RED=$(source $COLORS_FILE_PATH Red);
 echo "${GREEN}[+] Creating database folder${COLOR_OFF}";      # printf is also used instead of echo -e
 
 {
+    
 mkdir $DATABASE_ZIP_FOLDER
+mkdir $SOLR_DUMP_FOLDER_NAME
 # mkdir $DATABASE_DUMP_FOLDER_NAME
+
 } &> /dev/null   # hide stderr and stdout output using /dev/null
 
 echo "${GREEN}[+] Checking for local.env file${COLOR_OFF} "
