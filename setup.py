@@ -24,12 +24,13 @@ setup(
             "Programming Language :: Python :: 3.7",
             "Programming Language :: Python :: 3.8",
         ],
-    packages=['local_mongo'],
+    packages=['local_mongo','local_solr','utils'],
     include_package_data=True,
     install_requires=[],
     entry_points={
         "console_scripts": [
             "local-mongo=local_mongo.main:run",
+            "local-solr=local_solr.main:run",
         ]
     },
 )

@@ -6,18 +6,14 @@ import glob
 from rich import print as rprint
 from rich.console import Console
 
+from utils.docker import DockerUtil
+
 console = Console()
 
-class LocalMongo(object):
+class LocalMongo(DockerUtil):
     def __init__(self,client) -> None:
         self.DB_DUMP_PATH = "db_zip/*.zip"
         self.client=client
-
-    def get_container_name_by_id(self,container_name: str):
-        container_list = self.client.containers.list()
-        for i in container_list:
-            if i.name == container_name:
-                return i
 
     def get_db_dump(self):
         db_zip_gen = glob.iglob(self.DB_DUMP_PATH, recursive=True)
@@ -33,7 +29,7 @@ class LocalMongo(object):
 
         
     def exec(self,container_name: str):
-        local_mongo_container = self.get_container_name_by_id(container_name)
+        local_mongo_container = self.get_container(container_name)
         db_dump = self.get_db_dump()
         res = local_mongo_container.exec_run(f'bash -c "rm -rf {db_dump} && unzip -o db_zip/{db_dump}.zip && mongorestore --db {db_dump} --gzip {db_dump}"',stream=True)
         

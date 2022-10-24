@@ -1,18 +1,38 @@
-version: "3.8"
+version: "3"
 services:
   mongodb:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./docker/mongodb/Dockerfile
 
     image : "mongo:${MONGO_VERSION}"
-    platform: linux/amd64
-    container_name: "${CONTAINER_NAME}"
+    platform: ${DOCKER_PLATFORM}      # platform: osx | platform: windows/amd64 | platform: linux/arm64/v8
+    container_name: ${MONGO_CONTAINER_NAME}
     environment:
       - PUID=1000
       - PGID=1000
-    # volumes:
-    #   - ./database:/data/db       #persistent database
+    volumes:
+      - ./database:/data/db       #persistent database
     ports:
       - 27017:27017
     restart: unless-stopped
+
+  solr:
+    build:
+      context: .
+      dockerfile: ./docker/solr/Dockerfile
+
+    image: "solr:${SOLR_VERSION}"
+    container_name: ${SOLR_CONTAINER_NAME}
+    # platform: ${DOCKER_PLATFORM}
+    ports:
+     - "8985:8983"
+    volumes:
+      - data:/var/solr
+    # command:
+    #   - solr-precreate
+    #   - test
+    restart: unless-stopped
+
+volumes:
+  data:
