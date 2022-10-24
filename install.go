@@ -3,12 +3,11 @@ package main
 import (
 	"errors"
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
 	"runtime"
 
-	"github.com/spf13/viper"
+	"github.com/fatih/color"
 )
 
 var DATABASE_DUMP_FOLDER_NAME string = "database"
@@ -26,41 +25,32 @@ var os_platform string
 var docker_platform_key string = "DOCKER_PLATFORM"
 var docker_platform_value string
 
+type EnvironmentVariables struct {
+	key   string
+	value string
+}
+
 func init() {
 	os_platform := runtime.GOOS
 	_ = os_platform
 }
 
-func viperEnvVariable(key string) string {
-	viper.SetConfigFile(ENV_FILE_NAME)
-
-	err := viper.ReadInConfig()
-
-	if err != nil {
-		log.Fatalf("Error while reading config file %s", err)
-	}
-
-	value, ok := viper.Get(key).(string)
-
-	if !ok {
-		log.Fatalf("Invalid type assertion")
-	}
-
-	return value
-
-}
-
 func FormatENVFile(context string, key string, default_value string) {
 	var value string = default_value
-	fmt.Print(context)
+
+	d := color.New(color.FgCyan, color.Bold)
+	d.Print(context)
 	fmt.Scanf("%s", &value)
-	SetENVVariables(key, value)
+
+	var env_variables = EnvironmentVariables{key: key, value: value}
+	SetENVVariables(env_variables)
+
 	fmt.Printf("%v : %s\n", key, value)
 }
 
-func SetENVVariables(key string, value string) {
-	os.Setenv(key, value)
-	UpdateEnvFile(key, value)
+func SetENVVariables(env_variables EnvironmentVariables) {
+	os.Setenv(env_variables.key, env_variables.value)
+	UpdateEnvFile(env_variables.key, env_variables.value)
 }
 
 func UpdateEnvFile(key string, value string) {
@@ -82,7 +72,6 @@ func go_docker_compose() {
 	stdout, err := cmd.Output()
 
 	if err != nil {
-		fmt.Print("test")
 		fmt.Println(err.Error())
 		return
 	}
@@ -91,23 +80,22 @@ func go_docker_compose() {
 }
 
 func main() {
-	// color.Cyan("Prints text in cyan.")
 
 	_, err := os.Stat(ENV_FILE_NAME)
 	if errors.Is(err, os.ErrNotExist) {
-		// handle the case where the file doesn't exist
+
 		FormatENVFile(fmt.Sprintf("Enter the MongoDB version [%v]:", DEFAULT_MONGO_VERSION), "MONGO_VERSION", DEFAULT_MONGO_VERSION)
+		FormatENVFile(fmt.Sprintf("Enter the MongoDB container name [%v]:", DEFAULT_MONGO_CONTAINER_NAME), "MONGO_CONTAINER_NAME", DEFAULT_MONGO_CONTAINER_NAME)
+		FormatENVFile(fmt.Sprintf("Enter the Solr version [%v]:", DEFAULT_SOLR_VERSION), "SOLR_VERSION", DEFAULT_SOLR_VERSION)
+		FormatENVFile(fmt.Sprintf("Enter the Solr container name [%v]:", DEFAULT_SOLR_CONTAINER_NAME), "SOLR_CONTAINER_NAME", DEFAULT_SOLR_CONTAINER_NAME)
 
 		if os_platform == "darwin" {
 			docker_platform_value = "linux/amd64"
 		} else {
 			docker_platform_value = "linux/amd64"
 		}
-		SetENVVariables(docker_platform_key, docker_platform_value)
+		SetENVVariables(EnvironmentVariables{docker_platform_key, docker_platform_value})
 	}
-
-	value := viperEnvVariable("DOCKER_PLATFORM")
-	fmt.Printf("%v\n", value)
 
 	go_docker_compose()
 }
