@@ -1,9 +1,8 @@
-version: "3"
 services:
   solr:
     build:
-      context: .
-      dockerfile: ../docker/solr/Dockerfile
+      context: ${PROJECT_DIR}/docker-compose/solr
+      dockerfile: Dockerfile
 
     image: "solr:${SOLR_VERSION}"
     container_name: ${SOLR_CONTAINER_NAME}
@@ -16,6 +15,3 @@ services:
     #   - solr-precreate
     #   - test
     restart: unless-stopped
-
-volumes:
-  data:

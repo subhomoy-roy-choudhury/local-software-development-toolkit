@@ -1,7 +1,9 @@
-version: "3"
 services:
 
   postgresql:
+    build:
+      context: ${PROJECT_DIR}/docker-compose/postgresql
+      dockerfile: Dockerfile
     image: postgres:12.0-alpine
     container_name: 'local-postgres'
     # volumes:
@@ -13,6 +15,3 @@ services:
       - POSTGRES_DB=django_dev
     ports:
       - "5432:5432"
-
-volumes:
-  pg_data:

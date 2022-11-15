@@ -30,6 +30,7 @@ mkdir $DATABASE_ZIP_FOLDER
 echo "${GREEN}[+] Checking for local.env file${COLOR_OFF} "
 
 FILE=local.env
+
 if [ -f "$FILE" ]; then
     echo "${RED}[+] $FILE exists.${COLOR_OFF}"
 else 
@@ -56,6 +57,8 @@ else
         echo "DOCKER_PLATFORM=linux/amd64" >> $FILE
 
     fi
+
+    echo "PROJECT_DIR=$(pwd)" >> $FILE
 fi
 
 echo "[+] Loading Environment variables"
@@ -63,6 +66,13 @@ echo "[+] Loading Environment variables"
 source utils/load-env.sh local.env
 
 echo "[+] Building and starting mongo:4.2.2 instance"
-docker-compose up --build -d --remove-orphans
+docker-compose -f docker-compose.yml \
+    -f docker-compose/mongodb/docker-compose-mongo.yml \
+    -f docker-compose/solr/docker-compose-solr.yml \
+    up --build -d --remove-orphans
+
+# docker-compose -f docker-compose/mongodb/docker-compose-mongo.yml \
+#     -f docker-compose/solr/docker-compose-solr.yml \
+#     config
 
 echo "[+] Finished"
