@@ -1,0 +1,21 @@
+version: "3"
+services:
+  solr:
+    build:
+      context: .
+      dockerfile: ../docker/solr/Dockerfile
+
+    image: "solr:${SOLR_VERSION}"
+    container_name: ${SOLR_CONTAINER_NAME}
+    # platform: ${DOCKER_PLATFORM}
+    ports:
+     - "8985:8983"
+    volumes:
+      - data:/var/solr
+    # command:
+    #   - solr-precreate
+    #   - test
+    restart: unless-stopped
+
+volumes:
+  data:

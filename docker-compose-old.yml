@@ -34,5 +34,19 @@ services:
     #   - test
     restart: unless-stopped
 
+  db:
+    image: postgres:12.0-alpine
+    container_name: 'local-postgres'
+    # volumes:
+    #   - ./pg_data:/var/lib/postgresql/data/
+      # - ./services/pg_data/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=django
+      - POSTGRES_PASSWORD=django
+      - POSTGRES_DB=django_dev
+    ports:
+      - "5432:5432"
+
 volumes:
   data:
+  pg_data:

@@ -1,0 +1,21 @@
+version: "3"
+services:
+  mongodb:
+    build:
+      context: .
+      dockerfile: ../docker/mongodb/Dockerfile
+
+    image : "mongo:${MONGO_VERSION}"
+    platform: ${DOCKER_PLATFORM}      # platform: osx | platform: windows/amd64 | platform: linux/arm64/v8
+    container_name: ${MONGO_CONTAINER_NAME}
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ../database:/data/db       #persistent database
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+
+volumes:
+  data:
