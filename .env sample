@@ -1,0 +1,6 @@
+MONGO_VERSION=4.2.2
+MONGO_CONTAINER_NAME=local-mongo
+SOLR_VERSION=8.11.2
+SOLR_CONTAINER_NAME=local-solr
+DOCKER_PLATFORM=linux/amd64
+PROJECT_DIR=C:\Users\subho\Documents\GitHub\mongo-local-db-setup
