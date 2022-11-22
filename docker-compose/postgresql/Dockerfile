@@ -1,1 +1,1 @@
-FROM solr:12.0-alpine
+FROM postgres
