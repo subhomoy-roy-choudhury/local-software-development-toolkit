@@ -1,17 +1,27 @@
 services:
-
   postgresql:
     build:
       context: ${PROJECT_DIR}/docker-compose/postgresql
       dockerfile: Dockerfile
-    image: postgres:12.0-alpine
+    image: postgres:latest
     container_name: 'local-postgres'
+    restart: always
     # volumes:
     #   - ./pg_data:/var/lib/postgresql/data/
       # - ./services/pg_data/:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=django
-      - POSTGRES_PASSWORD=django
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Pass2020!
       - POSTGRES_DB=django_dev
     ports:
-      - "5432:5432"
+      - "54320:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@local.in
+      PGADMIN_DEFAULT_PASSWORD: admin
