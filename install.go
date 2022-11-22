@@ -12,7 +12,7 @@ import (
 
 var DATABASE_DUMP_FOLDER_NAME string = "database"
 var DATABASE_ZIP_FOLDER string = "db_zip"
-var ENV_FILE_NAME string = "local.env"
+var ENV_FILE_NAME string = "1.env"
 
 var DEFAULT_MONGO_VERSION string = "4.2.2"
 var DEFAULT_MONGO_CONTAINER_NAME string = "local-mongo"
@@ -24,6 +24,9 @@ var os_platform string
 
 var docker_platform_key string = "DOCKER_PLATFORM"
 var docker_platform_value string
+
+var current_path_key string = "PROJECT_DIR"
+var current_path_value string
 
 type EnvironmentVariables struct {
 	key   string
@@ -79,6 +82,14 @@ func go_docker_compose() {
 	fmt.Print(string(stdout))
 }
 
+func get_current_path() string {
+	mydir, err := os.Getwd()
+	if err != nil {
+		fmt.Println(err)
+	}
+	return mydir
+}
+
 func main() {
 
 	_, err := os.Stat(ENV_FILE_NAME)
@@ -95,7 +106,11 @@ func main() {
 			docker_platform_value = "linux/amd64"
 		}
 		SetENVVariables(EnvironmentVariables{docker_platform_key, docker_platform_value})
+
+		// Current Path (pwd)
+		current_path_value = get_current_path()
+		SetENVVariables(EnvironmentVariables{current_path_key, current_path_value})
 	}
 
-	go_docker_compose()
+	// go_docker_compose()
 }
