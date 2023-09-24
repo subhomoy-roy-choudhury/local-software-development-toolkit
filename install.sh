@@ -61,17 +61,16 @@ fi
 
 echo "[+] Loading Environment variables"
 
-# source utils/load-env.sh .env
+source utils/load-env.sh .env
 
-echo "[+] Building and starting mongo:4.2.2 - postgres:latest - solr:8.11.2 instance"
+echo "[+] Building and starting mongo:4.2.2 - postgres:latest - solr:8.11.2 - kafka instance"
 docker-compose -f docker-compose.yml \
     -f docker-compose/mongodb/docker-compose-mongo.yml \
     -f docker-compose/solr/docker-compose-solr.yml \
     -f docker-compose/postgresql/docker-compose-postgres.yml \
+    -f docker-compose/kafka/docker-compose-kafka.yml \
     up --build -d --remove-orphans
 
-# docker-compose -f docker-compose/mongodb/docker-compose-mongo.yml \
-#     -f docker-compose/solr/docker-compose-solr.yml \
-#     config
+# docker-compose -f docker-compose/kafka/docker-compose-kafka.yml up --build
 
 echo "[+] Finished"

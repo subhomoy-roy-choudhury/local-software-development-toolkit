@@ -1,0 +1,2 @@
+
+FROM lensesio/fast-data-dev:latest
