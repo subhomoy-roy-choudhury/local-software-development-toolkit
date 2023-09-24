@@ -1,0 +1,19 @@
+services:
+  kafka:
+    build:
+      context: ${PROJECT_DIR}/docker-compose/kafka
+      dockerfile: Dockerfile
+
+    image : "lensesio/fast-data-dev:latest"
+    platform: ${DOCKER_PLATFORM}      # platform: osx | platform: windows/amd64 | platform: linux/arm64/v8
+    container_name: local-kafka
+    environment:
+      - ${PROJECT_DIR}/.env
+    ports:
+      - 4181:3181
+      - 4040:3040
+      - 9081:7081
+      - 9082:7082
+      - 9083:7083
+      - 9092:7092
+    restart: unless-stopped
