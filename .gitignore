@@ -2,6 +2,7 @@ database/*
 db_zip/*
 data/*
 
+.env
 local*.env
 
 venv
