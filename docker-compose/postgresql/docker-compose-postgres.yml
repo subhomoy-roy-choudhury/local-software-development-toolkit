@@ -16,7 +16,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=local-postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
   pgadmin:
     image: dpage/pgadmin4
