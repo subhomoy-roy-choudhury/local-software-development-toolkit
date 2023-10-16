@@ -1,12 +1,10 @@
 ENV_FILE_NAME=$1
 UNAMESTR=$(uname)
 
-if [ "$UNAMESTR" = 'Linux' ]; then
-
-  export $(grep -v '^#' $ENV_FILE_NAME | xargs -d '\n')
-
-elif [ "$UNAMESTR" = 'FreeBSD' ] || [ "$UNAMESTR" = 'Darwin' ]; then
-
-  export $(grep -v '^#' $ENV_FILE_NAME | xargs -0)
-
-fi
+# For All Platform (MacOS, Windows, Linux)
+while IFS= read -r line
+do
+    if [[ ! "$line" =~ ^\# && -n "$line" ]]; then
+        export "$line"
+    fi
+done < $ENV_FILE_NAME
