@@ -1,0 +1,18 @@
+services:
+  rabbitmq:
+    build:
+      context: ${PROJECT_DIR}/docker-compose/rabbitMQ
+      dockerfile: Dockerfile
+    image: "rabbitmq:management"
+    container_name: 'local-rabbitMQ'
+    restart: always
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+
+volumes:
+  rabbitmq-data:
+    driver: local

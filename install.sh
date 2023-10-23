@@ -70,6 +70,7 @@ docker-compose -f docker-compose.yml \
     -f docker-compose/postgresql/docker-compose-postgres.yml \
     -f docker-compose/kafka/docker-compose-kafka.yml \
     -f docker-compose/redis/docker-compose-redis.yml \
+    -f docker-compose/rabbitMQ/docker-compose-rabbitMQ.yml \
     up --build -d --remove-orphans
 
 # docker-compose -f docker-compose/kafka/docker-compose-kafka.yml up --build
