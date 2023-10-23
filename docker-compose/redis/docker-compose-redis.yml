@@ -1,0 +1,13 @@
+
+services:
+  redis:
+    build:
+      context: ${PROJECT_DIR}/docker-compose/redis
+      dockerfile: Dockerfile
+    container_name: local-redis
+    image: "redis:latest"
+    ports:
+      - "8379:6379"
+    volumes:
+      - ${PROJECT_DIR}/database/redis:/data
+    restart: unless-stopped
