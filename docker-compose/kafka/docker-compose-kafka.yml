@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
 
     image : "lensesio/fast-data-dev:latest"
-    platform: ${DOCKER_PLATFORM}      # platform: osx | platform: windows/amd64 | platform: linux/arm64/v8
+    # platform: ${DOCKER_PLATFORM}      # platform: osx | platform: windows/amd64 | platform: linux/arm64/v8
     container_name: local-kafka
     environment:
       - ${PROJECT_DIR}/.env
