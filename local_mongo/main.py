@@ -1,4 +1,4 @@
-import os, signal, sys, time
+import os, signal, sys
 from dotenv import load_dotenv
 from pathlib import Path
 import docker

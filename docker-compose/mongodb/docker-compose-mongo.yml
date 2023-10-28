@@ -4,14 +4,15 @@ services:
       context: ${PROJECT_DIR}/docker-compose/mongodb
       dockerfile: Dockerfile
 
-    image : "mongo:${MONGO_VERSION}"
+    # image : "mongo:${MONGO_VERSION}"
+    image : "mongo:latest"
     # platform: ${DOCKER_PLATFORM}      # platform: osx | platform: windows/amd64 | platform: linux/arm64/v8
     container_name: ${MONGO_CONTAINER_NAME}
     environment:
       - PUID=1000
       - PGID=1000
     volumes:
-      - ${PROJECT_DIR}/database:/data/db       #persistent database
+      - ${PROJECT_DIR}/database/mongo:/data/db       #persistent database
     ports:
       - 27017:27017
     restart: unless-stopped

@@ -1,7 +1,6 @@
 FROM mongo:latest
 
-RUN apt update
-RUN apt-get install -y wget curl unzip nano
+RUN apt-get -y update && apt-get install -y wget curl unzip nano
 
 COPY . .
 
