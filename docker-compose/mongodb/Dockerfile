@@ -1,4 +1,4 @@
-FROM mongo:4.2.2
+FROM mongo:latest
 
 RUN apt update
 RUN apt-get install -y wget curl unzip nano
